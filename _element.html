@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="calculadora-componente">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `componente-operaciones`
+     * Operaciones básicas
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class CalculadoraComponente extends Polymer.Element {
+      static get is() { return 'calculadora-componente'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'calculadora-componente'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(CalculadoraComponente.is, CalculadoraComponente);
+  </script>
+</dom-module>

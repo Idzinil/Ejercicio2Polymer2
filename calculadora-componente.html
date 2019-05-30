@@ -1,0 +1,71 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./suma-componente.html">
+<link rel="import" href="./resta-componente.html">
+<link rel="import" href="./multiplicacion-componente.html">
+<link rel="import" href="./division-componente.html">
+
+<dom-module id="calculadora-componente">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Operaciones</h2>
+    <h3>Suma: <br><br> [[operador1]] + [[operador2]] = [[calculadoraSuma]] </h3>
+    <h3>Resta: <br><br> [[operador1]] - [[operador2]] = [[calculadoraResta]] </h3>
+    <h3>Multiplicacion: <br><br> [[operador1]] * [[operador2]] = [[calculadoraMultiplicacion]] </h3>
+    <h3>División: <br><br> [[operador1]] / [[operador2]] = [[calculadoraDivision]] </h3>
+
+    <h3>Total: <br><br> [[calculadoraSuma]] + [[calculadoraResta]] + [[calculadoraMultiplicacion]] + [[calculadoraDivision]] = [[total]]</h3>
+
+    <suma-componente operador1 = '[[operador1]]' operador2= '[[operador2]]' resultado = '{{calculadoraSuma}}'></suma-componente>
+    <resta-componente operador1 = '[[operador1]]' operador2 = '[[operador2]]' resultado = '{{calculadoraResta}}'></resta-componente>
+    <multiplicacion-componente operador1 = '[[operador1]]' operador2 = '[[operador2]]' resultado = '{{calculadoraMultiplicacion}}'></multiplicacion-componente>
+    <division-componente operador1 = '[[operador1]]' operador2 = '[[operador2]]' resultado = '{{calculadoraDivision}}'></suma-componente>
+
+  </template>
+
+  <script>
+    /**
+     * `componente-operaciones`
+     * Operaciones básicas
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class CalculadoraComponente extends Polymer.Element {
+      static get is() { return 'calculadora-componente'; }
+      static get properties() {
+        return {
+          operador1: {
+            type: Number,
+            value: 10,
+            reflectToAttribute: true, 
+          },
+          operador2: {
+            type: Number,
+            value: 2,
+            reflectToAttribute: true, 
+          },
+          calculadoraSuma: { type: Number },
+          calculadoraResta: { type: Number },
+          calculadoraMultiplicacion: { type: Number },
+          calculadoraDivision: { type: Number },
+          total: { type: Number }
+        };
+      }
+
+      static get observers() {
+        return ['_observaTotal(calculadoraSuma, calculadoraResta, calculadoraMultiplicacion, calculadoraDivision)']
+      }
+
+      _observaTotal(calculadoraSuma, calculadoraResta, calculadoraMultiplicacion, calculadoraDivision){
+        console.table('TOTALES: Suma = ', calculadoraSuma, ' Resta = ', calculadoraResta, 'Multiplicación = ', calculadoraMultiplicacion, 'División = ', calculadoraDivision);
+        this.total = (calculadoraSuma + calculadoraResta + calculadoraMultiplicacion + calculadoraDivision);
+      }
+    }
+    window.customElements.define(CalculadoraComponente.is, CalculadoraComponente);
+  </script>
+</dom-module>
